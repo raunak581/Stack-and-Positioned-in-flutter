@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          // backgroundColor: Colors.white,
+          backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(
             icon: Icon(Icons.menu, color: Colors.black),
