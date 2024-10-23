@@ -68,9 +68,9 @@ class MyApp extends StatelessWidget {
                 ),
               ],
             ),
-            CircleAvatar(
+            CircleAvatar(backgroundColor: Colors.transparent,
               child: SvgPicture.asset(
-                'assets/images/last.svg',
+                'assets/images/omakr.svg',
                 
               ),
               // radius: 18,
