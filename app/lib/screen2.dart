@@ -1,160 +1,252 @@
+import 'package:app/date.dart';
+import 'package:app/ordercomponent.dart';
+import 'package:app/ordernotification.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(Icons.menu, color: Colors.black),
-            onPressed: () {},
-          ),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.notifications, color: Colors.black),
-              onPressed: () {},
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 16.0),
-              child: CircleAvatar(
-                backgroundImage: AssetImage('assets/profile_picture.png'),
-                radius: 18,
-              ),
-            ),
-          ],
-        ),
-        body: Dashboard(),
-        
-      ),
-    );
-  }
-}
-
 
 class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Welcome, Mycot !!',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                FloatingActionButton(
-                  backgroundColor: Colors.white,
-                  shape: CircleBorder(),
-                  onPressed: () {
-                    // Add search action here
-                  },
-                  child: Icon(
-                    Icons.search,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Here is your dashboard....',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-            SizedBox(height: 16),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.cyan[700],
-                borderRadius: BorderRadius.circular(16),
-              ),
-              height: 220,
-              width: MediaQuery.sizeOf(context).width / 1.2,
-              child: Stack(
+    // Get screen width and height
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(screenWidth * 0.05), // Responsive padding
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Positioned(
-                    top: 20,
-                    left: 20,
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.pinkAccent,
-                      ),
-                      child: Icon(
-                        Icons.note,
-                        size: 60,
-                        color: Colors.white,
-                      ),
+                  Text(
+                    'Welcome, Mycot !!',
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.06, // Responsive font size
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Positioned(
-                    top: 5,
-                    right: 100,
-                    child: OrderInfoWidget(
-                      numberOfOrders: 3,
-                      status: 'active',
-                      imageUrls: [
-                        'https://th.bing.com/th/id/OIG.H858xksBGr2D8tqa54ZW?pid=ImgGn',
-                        'https://th.bing.com/th/id/OIG.H858xksBGr2D8tqa54ZW?pid=ImgGn',
-                        'https://th.bing.com/th/id/OIG.H858xksBGr2D8tqa54ZW?pid=ImgGn',
-                      ],
-                      backgroundColor: Colors.orange,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    right: 100,
-                    child: OrderInfoWidget(
-                      numberOfOrders: 3,
-                      status: 'Pending',
-                      imageUrls: [
-                        'https://th.bing.com/th/id/OIG.H858xksBGr2D8tqa54ZW?pid=ImgGn',
-                        'https://th.bing.com/th/id/OIG.H858xksBGr2D8tqa54ZW?pid=ImgGn',
-                      ],
-                      backgroundColor: Colors.white,
-                      textColor: Colors.black,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 20,
-                    left: 20,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text('Orders'),
-                      ),
-                    ),
+                  FloatingActionButton(elevation: 50,
+                    backgroundColor: Colors.white,
+                    shape: CircleBorder(),
+                    onPressed: () {
+                      // Add search action here
+                    },
+                    child: SvgPicture.asset(
+                'assets/images/Group 922.svg',width: 100,
+                
+              ),
                   ),
                 ],
               ),
-            ),
-            SizedBox(height: 30),
-            DateSelectionWidget(),
-          ],
+              Text(
+                'Here is your dashboard....',
+                style: TextStyle(
+                  fontSize: screenWidth * 0.04, // Responsive font size
+                  color: Colors.grey,
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.03), // Responsive spacing
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.cyan[700],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                height: screenHeight * 0.3, // Responsive container height
+                width: screenWidth * 0.9, // Responsive container width
+                child: PageView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    // First Page
+                    Stack(
+                      children: [
+                        Positioned(
+                          top: screenHeight * 0.05,
+                          left: screenWidth * 0.05,
+                          child: Container(
+                            width: screenWidth * 0.25, // Responsive size
+                            height: screenWidth * 0.25, // Responsive size
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.pinkAccent,
+                            ),
+                            child: Icon(
+                              Icons.note,
+                              size: screenWidth * 0.15, // Responsive icon size
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: screenHeight * 0.01,
+                          right: screenWidth * 0.1,
+                          child: OrderInfoWidget(
+                            numberOfOrders: 3,
+                            status: 'Active',
+                            imageUrls: const [
+                              'https://th.bing.com/th/id/OIG.H858xksBGr2D8tqa54ZW?pid=ImgGn',
+                              'https://th.bing.com/th/id/OIG.H858xksBGr2D8tqa54ZW?pid=ImgGn',
+                              'https://th.bing.com/th/id/OIG.H858xksBGr2D8tqa54ZW?pid=ImgGn',
+                            ],
+                            backgroundColor: Colors.orange,
+                          ),
+                        ),
+                        Positioned(
+                        bottom: screenHeight * 0.03,
+                        right: screenWidth * 0.2,
+                        child: OrderInfoWidget(
+                          numberOfOrders: 3,
+                          status: 'Pending',
+                          imageUrls: const [
+                            'https://th.bing.com/th/id/OIG.H858xksBGr2D8tqa54ZW?pid=ImgGn',
+                            'https://th.bing.com/th/id/OIG.H858xksBGr2D8tqa54ZW?pid=ImgGn',
+                          ],
+                          backgroundColor: Colors.white,
+                          textColor: Colors.black,
+                        ),
+                      ),
+                        Positioned(
+                          bottom: screenHeight * 0.03,
+                          left: screenWidth * 0.05,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.orange,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            onPressed: () {},
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.03,
+                              ), // Responsive padding
+                              child: Text('Orders'),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    // Second Page
+                    Stack(
+                      children: [
+                        Positioned(
+                          top: screenHeight * 0.03,
+                          left: screenWidth * 0.05,
+                          child: Container(
+                            width: screenWidth * 0.25, // Responsive size
+                            height: screenWidth * 0.25, // Responsive size
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.pinkAccent,
+                            ),
+                            child: Icon(
+                              Icons.note,
+                              size: screenWidth * 0.15, // Responsive icon size
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: screenHeight * 0.02,
+                          right: screenWidth * 0.2,
+                          child: OrderInfoWidget(
+                            numberOfOrders: 3,
+                            status: 'Pending',
+                            imageUrls:const  [
+                              'https://th.bing.com/th/id/OIG.H858xksBGr2D8tqa54ZW?pid=ImgGn',
+                              'https://th.bing.com/th/id/OIG.H858xksBGr2D8tqa54ZW?pid=ImgGn',
+                            ],
+                            backgroundColor: Colors.white,
+                            textColor: Colors.black,
+                          ),
+                        ),
+                        Positioned(
+                          bottom: screenHeight * 0.03,
+                          left: screenWidth * 0.05,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.orange,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            onPressed: () {},
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.03,
+                              ), // Responsive padding
+                              child: Text('Orders'),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    // Third Page
+                    Stack(
+                      children: [
+                        Positioned(
+                          top: screenHeight * 0.03,
+                          left: screenWidth * 0.05,
+                          child: Container(
+                            width: screenWidth * 0.25, // Responsive size
+                            height: screenWidth * 0.25, // Responsive size
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.pinkAccent,
+                            ),
+                            child: Icon(
+                              Icons.note,
+                              size: screenWidth * 0.15, // Responsive icon size
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: screenHeight * 0.02,
+                          right: screenWidth * 0.2,
+                          child: OrderInfoWidget(
+                            numberOfOrders: 3,
+                            status: 'Completed',
+                            imageUrls: const [
+                              'https://th.bing.com/th/id/OIG.H858xksBGr2D8tqa54ZW?pid=ImgGn',
+                              'https://th.bing.com/th/id/OIG.H858xksBGr2D8tqa54ZW?pid=ImgGn',
+                            ],
+                            backgroundColor: Colors.green,
+                          ),
+                        ),
+                        Positioned(
+                          bottom: screenHeight * 0.03,
+                          left: screenWidth * 0.05,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.orange,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            onPressed: () {},
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.03,
+                              ), // Responsive padding
+                              child: Text('Orders'),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.04), // Responsive spacing
+              DateSelectionWidget(),
+              OrderNotificationCard(),
+            ],
+          ),
         ),
       ),
     );
@@ -162,178 +254,10 @@ class Dashboard extends StatelessWidget {
 }
 
 
-class DateSelectionWidget extends StatefulWidget {
-  @override
-  _DateSelectionWidgetState createState() => _DateSelectionWidgetState();
-}
 
-class _DateSelectionWidgetState extends State<DateSelectionWidget> {
-  DateTime selectedDate = DateTime.now();
 
-  // Method to get the days of the current week
-  List<DateTime> getCurrentWeekDays() {
-    DateTime today = DateTime.now();
-    int currentWeekday = today.weekday;
-    DateTime startOfWeek = today.subtract(Duration(days: currentWeekday - 1));
-    return List.generate(7, (index) => startOfWeek.add(Duration(days: index)));
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    List<DateTime> currentWeekDays = getCurrentWeekDays();
 
-    return Container(
-      color: Colors.white,
-      padding: EdgeInsets.all(30),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(maxLines: 2,
-                DateFormat('MMMM, dd yyyy').format(DateTime.now())+"\nToday",
-                style: TextStyle(color: Colors.black, fontSize: 14),
-              ),
-              
-              DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  value: 'TIMELINE',
-                  items: <String>['TIMELINE', 'EVENTS', 'NOTES']
-                      .map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (_) {
-                    
-                  },
-                ),
-              ),
-              TextButton.icon(
-                onPressed: () {},
-                icon: Icon(Icons.calendar_today, color: Colors.black,),
-                label: Text(
-                  DateFormat('MMM, yyyy').format(DateTime.now()),
-                  style: TextStyle(color: Colors.black, ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: currentWeekDays.map((date) {
-              bool isSelected = date.day == selectedDate.day;
-              return GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedDate = date;
-                  });
-                },
-                child: Column(
-                  children: [
-                    Text(
-                      DateFormat('EEE').format(date).toUpperCase(),
-                      style: TextStyle(color: isSelected ? Colors.black : Colors.grey),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      date.day.toString(),
-                      style: TextStyle(
-                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                        color: isSelected ? Colors.black : Colors.grey,
-                      ),
-                    ),
-                    if (isSelected)
-                      Container(
-                        width: 4,
-                        height: 4,
-                        margin: EdgeInsets.only(top: 4),
-                        decoration: BoxDecoration(
-                          color: Colors.green,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                  ],
-                ),
-              );
-            }).toList(),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
-class OrderInfoWidget extends StatelessWidget {
-  final int numberOfOrders;
-  final String status;
-  final List<String> imageUrls;
-  final Color backgroundColor;
-  final Color textColor;
 
-  OrderInfoWidget({
-    required this.numberOfOrders,
-    required this.status,
-    required this.imageUrls,
-    this.backgroundColor = Colors.orange,
-    this.textColor = Colors.white,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        children: [
-          RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: numberOfOrders.toString().padLeft(2, '0') + ' ',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: textColor,
-                  ),
-                ),
-                TextSpan(
-                  text: '$status\nOrders from',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: textColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: imageUrls
-                .map(
-                  (url) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.red,
-                      radius: 18,
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(url),
-                        radius: 16,
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
-        ],
-      ),
-    );
-  }
-}
