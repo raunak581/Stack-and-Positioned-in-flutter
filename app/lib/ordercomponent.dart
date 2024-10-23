@@ -75,7 +75,7 @@ class OrderInfoWidget extends StatelessWidget {
                       backgroundColor: Colors.red, // Border color
                       radius: screenWidth * 0.06, // Outer circle radius
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(url),
+                        backgroundImage: AssetImage(url),
                         radius: screenWidth * 0.055, // Inner circle radius
                       ),
                     ),
