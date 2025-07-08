@@ -1,4 +1,4 @@
-import 'package:app/screen2.dart';
+import 'package:app/screens/MainScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -17,16 +17,16 @@ class MyApp extends StatelessWidget {
           elevation: 0,
           leading: IconButton(
             icon: SvgPicture.asset(
-                'assets/images/Group 919.svg',width: 18,
-                
-              ),
+              'assets/images/Group 919.svg',
+              width: 18,
+            ),
             onPressed: () {},
           ),
           actions: [
             IconButton(
-              icon:SvgPicture.asset(
-                'assets/images/Group 921.svg',width: 40,
-                
+              icon: SvgPicture.asset(
+                'assets/images/Group 921.svg',
+                width: 40,
               ),
               onPressed: () {
                 // Add favorite action here
@@ -36,9 +36,9 @@ class MyApp extends StatelessWidget {
               children: [
                 IconButton(
                   icon: SvgPicture.asset(
-                'assets/images/Group 917.svg',width: 20,
-                
-              ),
+                    'assets/images/Group 917.svg',
+                    width: 20,
+                  ),
                   onPressed: () {
                     // Add notification action here
                   },
@@ -47,12 +47,12 @@ class MyApp extends StatelessWidget {
                   right: 5,
                   top: 4,
                   child: Container(
-                    padding: EdgeInsets.all(1),
+                    padding: const EdgeInsets.all(1),
                     decoration: BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    constraints: BoxConstraints(
+                    constraints: const BoxConstraints(
                       minWidth: 16,
                       minHeight: 16,
                     ),
@@ -68,36 +68,37 @@ class MyApp extends StatelessWidget {
                 ),
               ],
             ),
-            CircleAvatar(backgroundColor: Colors.transparent,
-              child: SvgPicture.asset(
-                'assets/images/omakr.svg',
-                
+            ClipOval(
+              child: Image.asset(
+                'assets/images/omakr.png',
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover, // Ensures image fills the circle
               ),
-              // radius: 18,
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 10),
           ],
         ),
         body: Dashboard(), // Placeholder for your dashboard content
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.blueGrey[900],
-          shape: CircleBorder(),
+          shape: const CircleBorder(),
           elevation: 5,
           onPressed: () {
             // Add action for the FAB
           },
-          child: Icon(Icons.add, color: Colors.white),
+          child: const Icon(Icons.add, color: Colors.white),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomAppBar(
           height: 65,
           color: Colors.white,
           shadowColor: Colors.blueAccent,
-          shape: CircularNotchedRectangle(),
+          shape: const CircularNotchedRectangle(),
           notchMargin: 8,
           child: Container(
             height: 56, // Reduced height to fit content within BottomAppBar
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
                 horizontal: 10.0), // Added padding for better spacing
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,9 +114,8 @@ class MyApp extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SvgPicture.asset(
-                'assets/images/Group 910.svg',
-                
-              ),
+                          'assets/images/Group 910.svg',
+                        ),
                         const Text('Home', style: TextStyle(fontSize: 12)),
                       ],
                     ),
@@ -127,33 +127,31 @@ class MyApp extends StatelessWidget {
                     onTap: () {
                       // Handle Customers tap
                     },
-                    child:  Column(
+                    child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SvgPicture.asset(
-                'assets/images/Group 912.svg',
-                
-              ),
-                        Text('Customers', style: TextStyle(fontSize: 12)),
+                          'assets/images/Group 912.svg',
+                        ),
+                        const Text('Customers', style: TextStyle(fontSize: 12)),
                       ],
                     ),
                   ),
                 ),
-                SizedBox(width: 40), // Space for the FloatingActionButton
+                const SizedBox(width: 40),
                 // Khata Button
                 Expanded(
                   child: GestureDetector(
                     onTap: () {},
-                    child:  Column(
+                    child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                      SvgPicture.asset(
-                'assets/images/Group 913.svg',
-                
-              ),
-                        Text('Khata', style: TextStyle(fontSize: 12)),
+                        SvgPicture.asset(
+                          'assets/images/Group 913.svg',
+                        ),
+                        const Text('Khata', style: TextStyle(fontSize: 12)),
                       ],
                     ),
                   ),
@@ -161,18 +159,15 @@ class MyApp extends StatelessWidget {
                 // Orders Button
                 Expanded(
                   child: GestureDetector(
-                    onTap: () {
-                      // Handle Orders tap
-                    },
-                    child:  Column(
+                    onTap: () {},
+                    child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                       SvgPicture.asset(
-                'assets/images/Group 914.svg',
-                
-              ),
-                        Text('Orders', style: TextStyle(fontSize: 12)),
+                        SvgPicture.asset(
+                          'assets/images/Group 914.svg',
+                        ),
+                        const Text('Orders', style: TextStyle(fontSize: 12)),
                       ],
                     ),
                   ),

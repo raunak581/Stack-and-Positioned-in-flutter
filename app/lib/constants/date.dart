@@ -16,14 +16,14 @@ class _DateSelectionWidgetState extends State<DateSelectionWidget> {
     DateTime startOfWeek = today.subtract(Duration(days: currentWeekday - 1));
     return List.generate(7, (index) => startOfWeek.add(Duration(days: index)));
   }
-
+@override
 Widget build(BuildContext context) {
   double screenWidth = MediaQuery.of(context).size.width;
   List<DateTime> currentWeekDays = getCurrentWeekDays();
 
   return Container(
     color: Colors.white,
-    padding: EdgeInsets.all(screenWidth * 0.06), // Responsive padding
+    padding: EdgeInsets.all(screenWidth * 0.06), 
     child: Column(
       children: [
         Row(
@@ -31,7 +31,7 @@ Widget build(BuildContext context) {
           children: [
             Flexible(
               child: Text(
-                DateFormat('MMMM, dd yyyy').format(DateTime.now()) + "\nToday",
+                "${DateFormat('MMMM, dd yyyy').format(DateTime.now())}\nToday",
                 style: TextStyle(fontWeight: FontWeight.bold,
                   color: Colors.black,
                   fontSize: screenWidth * 0.035, // Responsive font size
@@ -71,7 +71,7 @@ Widget build(BuildContext context) {
                 ),
                 label: Text(
                   DateFormat('MMM, yyyy').format(DateTime.now()),
-                  style: TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.black),
                 ),
               ),
             ),
@@ -117,7 +117,7 @@ Widget build(BuildContext context) {
                           width: screenWidth * 0.02, // Responsive size
                           height: screenWidth * 0.02, // Responsive size
                           margin: EdgeInsets.only(top: screenWidth * 0.01), // Responsive margin
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.green,
                             shape: BoxShape.circle,
                           ),

@@ -5,17 +5,18 @@ class OrderNotificationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: 300,
-        padding: EdgeInsets.all(20),
+        width: double.infinity,
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(25),
           boxShadow: [
             BoxShadow(
+              // ignore: deprecated_member_use
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 2,
               blurRadius: 5,
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -25,14 +26,14 @@ class OrderNotificationCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'New order created',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     'New Order created with Order',
                     style: TextStyle(
@@ -40,8 +41,8 @@ class OrderNotificationCard extends StatelessWidget {
                       color: Colors.grey[600],
                     ),
                   ),
-                  SizedBox(height: 8),
-                  Text(
+                  const SizedBox(height: 8),
+                  const Text(
                     '09:00 AM',
                     style: TextStyle(
                       fontSize: 14,
@@ -49,18 +50,18 @@ class OrderNotificationCard extends StatelessWidget {
                     ),
                   ),
                  
-                  IconButton(onPressed: () => (), icon: Icon(Icons.arrow_forward,color: Colors.orange,weight: 30,))
+                  IconButton(onPressed: () => (), icon: const Icon(Icons.arrow_forward,color: Colors.orange,weight: 30,))
                 ],
               ),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Container(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: Colors.orange[100],
                 shape: BoxShape.circle,
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.assignment, // You can use any suitable icon here
                 color: Colors.orange,
                 size: 30,
