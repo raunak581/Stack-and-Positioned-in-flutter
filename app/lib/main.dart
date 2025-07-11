@@ -1,8 +1,12 @@
 import 'package:app/screens/MainScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
+
+  // debugPaintSizeEnabled = true; // Add this before runApp()
+  
   runApp(MyApp());
 }
 
@@ -180,3 +184,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+

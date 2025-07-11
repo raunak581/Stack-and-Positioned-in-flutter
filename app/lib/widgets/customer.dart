@@ -2,7 +2,7 @@ import 'package:app/constants/constants.dart';
 import 'package:app/widgets/graph(CustomerWidget).dart';
 import 'package:app/widgets/imageOverlay.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Customer extends StatelessWidget {
   final double screenWidth;
@@ -32,206 +32,227 @@ class Customer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          padding: EdgeInsets.all(screenWidth * 0.05),
-          child: Container(
-            decoration: BoxDecoration(
-              color: AppColors.mintGreen,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            height: screenHeight * 0.3,
-            width: screenWidth * 0.9,
-          ),
-        ),
-        Positioned(
-          top: screenHeight * 0.04,
-          left: screenWidth * 0.10,
-          child: Container(
-            width: screenWidth * 0.3,
-            height: screenWidth * 0.3,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.pinkAccent,
-            ),
-            child: SvgPicture.asset(
-              'assets/images/customers-illustration-image.svg',
-              fit: BoxFit.fill,
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 150,
-          left: 45,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.pinkMagenta,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ),
-            onPressed: () {},
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
-              child: const Text(
-                'View Customers',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: screenHeight * 0.02,
-          right: screenWidth * 0.15,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Stack(
-                clipBehavior: Clip.none,
+    return Container(
+      margin: EdgeInsets.all(screenWidth * 0.05),
+      height: screenHeight * 0.35,
+      width: screenWidth * 0.9,
+      decoration: BoxDecoration(
+        color: AppColors.mintGreen,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(screenWidth * 0.04),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Left - Illustration + Button
+            Expanded(
+              flex: 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Illustration Circle
                   Container(
-                    height: screenHeight * 0.09,
-                    padding: EdgeInsets.symmetric(
-                      vertical: screenHeight * 0.01,
-                      horizontal: screenWidth * 0.025,
+                    width: screenWidth * 0.25,
+                    height: screenWidth * 0.25,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.pinkAccent,
                     ),
-                    decoration: BoxDecoration(
-                      color: AppColors.pinkMagenta,
-                      borderRadius: BorderRadius.circular(12),
+                    child: Padding(
+                      padding: EdgeInsets.all(screenWidth * 0.02),
+                      child: SvgPicture.asset(
+                        'assets/images/customers-illustration-image.svg',
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                    child: RichText(
-                      text: TextSpan(
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.035,
-                          color: Colors.white,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: activeOrderCount.toString().padLeft(2, '0'),
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(text: activeOrdersText),
-                        ],
+                  ),
+                  const Spacer(),
+                  // Button
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.pinkMagenta,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.05,
+                        vertical: screenHeight * 0.01,
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      'View Customers',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenWidth * 0.02,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
-        ),
-        Positioned(
-          bottom: screenHeight * 0.1,
-          left: screenWidth * 0.5,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                clipBehavior: Clip.none,
+            ),
+
+            // Right - Info cards + avatars
+            Expanded(
+              flex: 3,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Container(
-                    constraints: BoxConstraints(
-                      maxWidth: screenWidth * 0.3,
-                      maxHeight: screenHeight * 0.07,
-                    ),
-                    height: screenHeight * 0.07,
-                    padding: EdgeInsets.symmetric(
-                      vertical: screenHeight * 0.01,
-                      horizontal: screenWidth * 0.025,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: RichText(
-                      text: TextSpan(
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.035,
-                          color: Colors.black87,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: '$pendingOrderCount ',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text: pendingOrdersText,
-                            style: TextStyle(color: Colors.grey[600]),
-                          ),
-                        ],
-                      ),
+                  // Active Orders
+                  Flexible(
+                    flex: 2,
+                    fit: FlexFit.tight,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        double cardHeight = constraints.maxHeight;
+                        double cardWidth = constraints.maxWidth;
+                        double avatarSize = cardHeight * 0.9;
+                        double overlapOffset = avatarSize * 0.1;
+
+                        return Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            _buildInfoCard(
+                              screenWidth,
+                              screenHeight,
+                              text: activeOrdersText,
+                              count: activeOrderCount,
+                              color: AppColors.pinkMagenta,
+                              textColor: AppColors.white,
+                            ),
+                            Positioned(
+                              bottom: -avatarSize * 0.1,
+                              left: cardWidth * 0.01,
+                              child: buildOverlappingAvatars(
+                                activeAvatars,
+                                avatarSize,
+                              ),
+                            ),
+                            Positioned(
+                                bottom: avatarSize * 0.27,
+                                left: cardWidth * 0.55,
+                                child: Icon(Icons.add_circle_outlined,
+                                    size: avatarSize * 0.29,
+                                    color: Colors.white)),
+                          ],
+                        );
+                      },
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        Positioned(
-          bottom: screenHeight * 0.21,
-          left: screenWidth * 0.5,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Container(
-                    constraints: BoxConstraints(
-                      maxWidth: screenWidth * 0.3,
-                    ),
-                    width: screenWidth * 0.3,
-                    height: screenHeight * 0.08,
-                    padding: EdgeInsets.symmetric(
-                      vertical: screenHeight * 0.01,
-                      horizontal: screenWidth * 0.025,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+
+                  const Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
                     child: StatCard(),
                   ),
+                  // Pending Orders
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        double cardHeight = constraints.maxHeight;
+                        double cardWidth = constraints.maxWidth;
+                        double avatarSize = cardHeight * 0.99;
+                        double overlapOffset = avatarSize * 0.1;
+
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                _buildInfoCard(
+                                  screenWidth,
+                                  screenHeight,
+                                  text: pendingOrdersText,
+                                  count: pendingOrderCount,
+                                  color: AppColors.white,
+                                  textColor: Colors.black87,
+                                ),
+                                Positioned(
+                                  bottom: -avatarSize * 0.1,
+                                  left: cardWidth * 0.33,
+                                  child: buildOverlappingAvatars(
+                                    activeAvatars,
+                                    avatarSize,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.006),
                 ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoCard(
+    double screenWidth,
+    double screenHeight, {
+    required String text,
+    required int count,
+    required Color color,
+    required Color textColor,
+  }) {
+    return Container(
+      constraints: BoxConstraints(
+        maxWidth: screenWidth * 0.45,
+        minHeight: screenHeight * 0.07,
+      ),
+      padding: EdgeInsets.symmetric(
+        vertical: screenHeight * 0.01,
+        horizontal: screenWidth * 0.025,
+      ),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            style: TextStyle(
+              fontSize: screenWidth * 0.03,
+              color: textColor,
+              height: 1.1,
+            ),
+            children: [
+              TextSpan(
+                text: '$count ',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: screenWidth * 0.032,
+                ),
+              ),
+              TextSpan(
+                text: text,
+                style: TextStyle(color: textColor),
               ),
             ],
           ),
         ),
-        Positioned(
-          bottom: screenHeight * 0.16,
-          right: screenWidth * 0.15,
-          child: buildOverlappingAvatars(
-            activeAvatars,
-          ),
-        ),
-        Positioned(
-            bottom: screenHeight * 0.29,
-            right: screenWidth * 0.2,
-            child: Container(
-              height: screenHeight * 0.02,
-              width: screenHeight * 0.02,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.add,
-                color: Color.fromARGB(255, 90, 88, 88),
-                size: 20,
-              ),
-            )),
-        Positioned(
-          bottom: screenHeight * 0.001,
-          right: screenWidth * 0.00001,
-          child: buildOverlappingAvatars(
-            activeAvatars,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

@@ -7,13 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Dashboard extends StatelessWidget {
-  
-
   @override
   Widget build(BuildContext context) {
     // Get screen width and height
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    double cardHeight = MediaQuery.of(context).size.width > 600
+        ? screenHeight * 0.4 // tablet
+        : screenHeight * 0.3; // phone
 
     final List<Map<String, dynamic>> cardData = [
       {
@@ -44,6 +45,8 @@ class Dashboard extends StatelessWidget {
           'assets/images/omakr.png',
         ],
         'pendingAvatars': [
+          'assets/images/omakr.png',
+          'assets/images/omakr.png',
           'assets/images/omakr.png',
         ],
       },
@@ -110,14 +113,18 @@ class Dashboard extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.03), // Responsive spacing
 
                   Container(
-                    height: screenHeight * 0.4,
-                    width: screenWidth * 0.9,
+                    constraints: BoxConstraints(
+                      minHeight: cardHeight,
+                    ),
+                    height: cardHeight, // Responsive height
+                    width: double.infinity,
                     child: PageView.builder(
-                      itemCount: 3, // You have 3 different widgets
+                      controller: PageController(viewportFraction: 0.95),
+                      itemCount: 3,
                       itemBuilder: (context, index) {
+                        final data = cardData[index];
                         switch (index) {
                           case 0:
-                            final data = cardData[0];
                             return OrderCardWidget(
                               screenWidth: screenWidth,
                               screenHeight: screenHeight,
@@ -129,7 +136,6 @@ class Dashboard extends StatelessWidget {
                               pendingAvatars: data['pendingAvatars'],
                             );
                           case 1:
-                            final data = cardData[1];
                             return SubscriptionCardWidget(
                               screenWidth: screenWidth,
                               screenHeight: screenHeight,
@@ -143,7 +149,6 @@ class Dashboard extends StatelessWidget {
                               activeSubtext: data['activeSubtext'],
                             );
                           case 2:
-                            final data = cardData[2];
                             return Customer(
                               screenWidth: screenWidth,
                               screenHeight: screenHeight,
@@ -157,7 +162,7 @@ class Dashboard extends StatelessWidget {
                               activeSubtext: data['activeSubtext'],
                             );
                           default:
-                            return const SizedBox(); // fallback
+                            return const SizedBox();
                         }
                       },
                     ),

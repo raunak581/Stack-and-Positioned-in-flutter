@@ -1,25 +1,23 @@
-  import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-Widget buildOverlappingAvatars(List<String> imagePaths) {
-    return SizedBox(
-      width: 120 + (imagePaths.length - 1) * 25,
-      height: 200,
-      child: Stack(
-        children: List.generate(imagePaths.length, (index) {
-          return Positioned(
-            left: index * 30, // Controls overlap distance
-            child: ClipOval(
-              child: SizedBox(
-                width: 120,
-                height: 120,
-                child: Image.asset(
-                  imagePaths[index],
-                  fit: BoxFit.cover, // Fill the circle completely
-                ),
-              ),
+Widget buildOverlappingAvatars(List<String> imagePaths, double avatarSize) {
+  return SizedBox(
+    height: avatarSize,
+    width: avatarSize + (imagePaths.length - 1) * (avatarSize * 0.6),
+    child: Stack(
+      children: List.generate(imagePaths.length, (index) {
+        return Positioned(
+          left: index * avatarSize * 0.3,
+          child: ClipOval(
+            child: Image.asset(
+              imagePaths[index],
+              width: avatarSize,
+              height: avatarSize,
+              fit: BoxFit.cover,
             ),
-          );
-        }),
-      ),
-    );
-  }
+          ),
+        );
+      }),
+    ),
+  );
+}
